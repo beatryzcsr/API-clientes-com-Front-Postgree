@@ -7,11 +7,10 @@ const ClienteController = require('../controllers/clientesController');
 // GET 
 router.get('/', ClienteController.listarTodos);
 
-// GET /clientes/nome/:nome
-router.get('/nome/:nome', ClienteController.buscarPorNome);
+router.get('/buscar/nome/:nome', ClienteController.buscarPorNome);
 
-// GET por ID
-router.get('/:id', ClienteController.buscarPorId);
+router.get('/buscar/id/:id', ClienteController.buscarPorId);
+
 
 // POST 
 router.post('/', ClienteController.criar);

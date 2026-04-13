@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciador de Clientes</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container-header">
+        <h1>📋 Gerenciador de Clientes</h1>
+        <p class="subtitle">Aplicação de Gestão de Clientes</p>
+      </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+      <div class="container">
+        <!-- Seção de Formulário -->
+        <section class="form-section">
+          <h2>Adicionar ou Editar Cliente</h2>
+          <form id="clientForm">
+            <div class="form-group">
+              <label for="nome">Nome:</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Digite o nome completo"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="cpf">CPF:</label>
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                placeholder="000.000.000-00"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-mail:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="seu@email.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="telefone">Telefone:</label>
+              <input
+                type="tel"
+                id="telefone"
+                name="telefone"
+                placeholder="(11) 99999-9999"
+                required
+              />
+            </div>
+
+            <div class="form-buttons">
+              <button type="submit" class="btn btn-primary">
+                Salvar Cliente
+              </button>
+              <button type="button" class="btn btn-secondary" id="btnLimpar">
+                Limpar Formulário
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Seção de Listagem -->
+        <section class="list-section">
+          <h2>Lista de Clientes</h2>
+
+          <div class="list-controls">
+            <button class="btn btn-success" id="btnRecarregar">
+              🔄 Recarregar Lista
+            </button>
+            <div class="search-box">
+              <select id="searchType" title="Selecionar tipo de busca">
+                <option value="nome">Buscar por Nome</option>
+                <option value="id">Buscar por ID</option>
+              </select>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Digite o valor para buscar..."
+              />
+              <button class="btn btn-primary" id="btnBuscar">Buscar</button>
+            </div>
+          </div>
+
+          <div
+            id="loadingMessage"
+            class="message message-info"
+          >
+            Carregando clientes...
+          </div>
+
+          <div id="emptyMessage" class="message message-info">
+            Nenhum cliente cadastrado. Adicione um novo cliente usando o
+            formulário acima.
+          </div>
+
+          <div id="clientsList" class="clients-table-container">
+            <!-- Tabela será preenchida via JavaScript -->
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+      <p>
+        &copy; 2026 - Sistema de Gestão de Clientes | Desenvolvido para Alunos
+        de Desenvolvimento de Sistemas
+      </p>
+    </footer>
+
+    <!-- Modal de Mensagens -->
+    <div id="modalMessage" class="modal-message">
+      <div class="modal-content">
+        <p id="modalText"></p>
+        <button class="btn btn-primary" onclick="fecharModal()">Fechar</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

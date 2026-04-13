@@ -28,29 +28,4 @@ pool.connect((erro, client, release) => {
 });
 
 
-const criarTabela = async () => {
-  const sql = `
- create table if not exists clientes (
-id serial primary key,
-nome varchar (50) not null,
-cpf integer not null,
-telefone varchar(14) not null,
-email varchar (30) not null,
-datanasc  TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
-rua varchar (40) not null,
-numeroCasa integer not null,
-bairro varchar (40) not null
-)
-  `;
-
-  try {
-    await pool.query(sql);
-    console.log("✅ Tabela clientes verificada/criada");
-  } catch (erro) {
-    console.error("❌ Erro ao criar tabela:", erro.message);
-  }
-};
-
-criarTabela();
-
 module.exports = pool;

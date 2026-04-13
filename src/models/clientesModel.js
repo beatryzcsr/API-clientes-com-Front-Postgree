@@ -21,17 +21,17 @@ async function buscarPorId(id) {
 
 //post
 async function criar(dados) {
-  const { nome, cpf, telefone, email, datanasc, rua, numeroCasa, bairro  } = dados;
+  const { nome, cpf, telefone, email } = dados;
   
   const sql = `
-    INSERT INTO clientes ( nome, cpf, telefone, email, datanasc, rua, numeroCasa, bairro )
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    INSERT INTO clientes ( nome, cpf, email, telefone )
+    VALUES ($1, $2, $3, $4)
     RETURNING *
   `;
   
   const result = await pool.query(
     sql,
-    [nome, cpf, telefone, email, datanasc, rua, numeroCasa, bairro ]
+    [nome, cpf, telefone, email]
   );
   
   return result.rows[0];
@@ -39,18 +39,18 @@ async function criar(dados) {
 
 //put
 async function atualizar(id, dados) {
-  const { nome, cpf, telefone, email, datanasc, rua, numeroCasa, bairro  } = dados;
+  const { nome, cpf, telefone, email} = dados;
   
   const sql = `
     UPDATE clientes
-    SET nome = $1, cpf = $2, telefone = $3, email = $4, datanasc = $5, rua = $6, numeroCasa = $7, bairro = $8
-    WHERE id = $9
+    SET nome = $1, cpf = $2, email = $3, telefone = $4
+    WHERE id = $5
     RETURNING *
   `;
   
   const result = await pool.query(
     sql,
-    [nome, cpf, telefone, email, datanasc, rua, numeroCasa, bairro, id]
+    [nome, cpf, email, telefone, id]
   );
  
   return result.rows[0] || null;
