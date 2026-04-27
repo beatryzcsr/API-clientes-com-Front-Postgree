@@ -18,9 +18,9 @@ function mostrarMensagem(mensagem, tipo = 'info') {
     
     // Define a cor baseado no tipo
     if (tipo === 'sucesso') {
-        modal.style.backgroundColor = 'rgba(40, 241, 60, 0.86)';
+        modal.style.backgroundColor = 'rgba(146, 240, 154, 0.86)';
     } else if (tipo === 'erro') {
-        modal.style.backgroundColor = 'rgba(216, 54, 54, 0.96)';
+        modal.style.backgroundColor = 'rgba(213, 104, 104, 0.96)';
     }
 }
 
@@ -180,7 +180,7 @@ function exibirTabela(produtos) {
             <tr>
                 <td>#${Produto.id}</td>
                 <td>${Produto.nome}</td>
-                <td>${formatarCPF(Produto.preco)}</td>
+                <td>${Produto.preco}</td>
                 <td>${Produto.estoque}</td>
                 <td>${Produto.categoria}</td>
                 <td class="acoes">
