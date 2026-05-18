@@ -1,6 +1,11 @@
+// Importar as funções do Model
 const ProdutoModel = require('../models/produtosModel');
 
-//rota get geral
+// ============================================================
+// FUNÇÃO: listarTodos (ASSÍNCRONA)
+// ROTA: GET /produtos
+// DESCRIÇÃO: Lista todos os produtos do banco de dados
+// ============================================================
 async function listarTodos(req, res) {
   try {
     const produtos = await ProdutoModel.listarTodos();
@@ -13,7 +18,10 @@ async function listarTodos(req, res) {
   }
 }
 
-//get por id
+// ============================================================
+// FUNÇÃO: buscarPorId (ASSÍNCRONA)
+// ROTA: GET /produtos/:id
+// ============================================================
 async function buscarPorId(req, res) {
   try {
     const id = parseInt(req.params.id);
@@ -24,40 +32,55 @@ async function buscarPorId(req, res) {
       });
     }
     
-    const produtos = await ProdutoModel.buscarPorId(id);
+    const produto = await ProdutoModel.buscarPorId(id);
     
-    if (produtos) {
-      res.status(200).json(produtos);
+    if (produto) {
+      res.status(200).json(produto);
     } else {
       res.status(404).json({ 
-        mensagem: `produtos ${id} não encontrado` 
+        mensagem: `Produto ${id} não encontrado` 
       });
     }
   } catch (erro) {
     res.status(500).json({ 
-      mensagem: 'Erro ao buscar produtos',
+      mensagem: 'Erro ao buscar produto',
       erro: erro.message 
     });
   }
 }
 
-//post
+// ============================================================
+// FUNÇÃO: criar (ASSÍNCRONA)
+// ROTA: POST /produtos
+// ============================================================
 async function criar(req, res) {
   try {
-    const {nome, preco,estoque,categoria} = req.body;
+    const { nome, preco, estoque, categoria } = req.body;
     
     // Validações
-    if (!nome || !preco ||!estoque || !categoria ) {
+    if (!nome || !preco || !estoque || !categoria) {
       return res.status(400).json({ 
         mensagem: 'Todos os campos são obrigatórios' 
       });
     }
     
+    if (parseFloat(preco) <= 0) {
+      return res.status(400).json({ 
+        mensagem: 'O preço deve ser maior que zero' 
+      });
+    }
+    
+    if (parseInt(estoque) < 0) {
+      return res.status(400).json({ 
+        mensagem: 'O estoque não pode ser negativo' 
+      });
+    }
+    
     const novoProduto = await ProdutoModel.criar({ 
       nome, 
-      preco,
-      estoque,
-      categoria
+      preco, 
+      estoque, 
+      categoria 
     });
     
     res.status(201).json(novoProduto);
@@ -69,11 +92,14 @@ async function criar(req, res) {
   }
 }
 
-//put
+// ============================================================
+// FUNÇÃO: atualizar (ASSÍNCRONA)
+// ROTA: PUT /produtos/:id
+// ============================================================
 async function atualizar(req, res) {
   try {
     const id = parseInt(req.params.id);
-    const { nome, preco, estoque, categoria} = req.body;
+    const { nome, preco, estoque, categoria } = req.body;
     
     if (isNaN(id)) {
       return res.status(400).json({ 
@@ -89,9 +115,9 @@ async function atualizar(req, res) {
     
     const produtoAtualizado = await ProdutoModel.atualizar(id, { 
       nome, 
-      preco,
-      estoque,
-      categoria
+      preco, 
+      estoque, 
+      categoria 
     });
     
     if (produtoAtualizado) {
@@ -109,7 +135,10 @@ async function atualizar(req, res) {
   }
 }
 
-//delete
+// ============================================================
+// FUNÇÃO: deletar (ASSÍNCRONA)
+// ROTA: DELETE /produtos/:id
+// ============================================================
 async function deletar(req, res) {
   try {
     const id = parseInt(req.params.id);
@@ -124,7 +153,7 @@ async function deletar(req, res) {
     
     if (deletado) {
       res.status(200).json({ 
-        mensagem:`Produto ${id} removido com sucesso` 
+        mensagem: `Produto ${id} removido com sucesso` 
       });
     } else {
       res.status(404).json({ 
@@ -139,21 +168,26 @@ async function deletar(req, res) {
   }
 }
 
-//buscar por nome
+// ============================================================
+// FUNÇÃO: buscarPorNome (ASSÍNCRONA)
+// ROTA: GET /produtos/categoria/:categoria
+// ============================================================
 async function buscarPorNome(req, res) {
   try {
     const { nome } = req.params;
-    const produto = await ProdutoModel.buscarPorNome(nome);
-    res.status(200).json(produto);
+    const produtos = await ProdutoModel.buscarPorNome(nome);
+    res.status(200).json(produtos);
   } catch (erro) {
     res.status(500).json({ 
-      mensagem: 'Erro ao buscar produto por nome',
+      mensagem: 'Erro ao buscar produtos por nome',
       erro: erro.message 
     });
   }
 }
 
-//exportando
+// ============================================================
+// EXPORTAR TODAS AS FUNÇÕES
+// ============================================================
 module.exports = {
   listarTodos,
   buscarPorId,

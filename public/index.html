@@ -1,40 +1,37 @@
-<!-- pagina inicial que direciona para o cadastro de produtos -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-     <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Produtos</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header>
+    <h1>Login</h1>
+    <p>Faça login para acessar o cadastro de produtos.</p>
+  </header>
 
-    <header>
-<div class="menu">
-    <a href="./index.html" class="btn">Menu</a>
-    <a href="./home.html" class="btn">Gerenciador</a>
-    <a href="./home.html" class="btn">Grupo</a>
-</div>
-    </header>
-
-    <div class="container">
-
-        <div class="escrita">
-        <h1>Bem-vindo ao Gerenciador de Produtos</h1>
-        <p>Gerencie seus produtos de forma fácil e eficiente.</p>
-        
+  <main>
+    <section class="panel login-panel">
+      <h2>Autenticação</h2>
+      <div id="message" class="message"></div>
+      <form id="loginForm">
+        <div class="form-row">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" required />
         </div>
-
-        <a href="./home.html" class="btn">Ir para o Gerenciador</a>
-        
-        <div class="video">
-            <video autoplay loop muted playsinline class="back-video">
-    <source src="./img/fundo.mp4" type="video/mp4">
-</video>
+        <div class="form-row">
+          <label for="password">Senha</label>
+          <input id="password" type="password" required />
         </div>
-    </div>
-    
+        <div class="button-row">
+          <button type="submit">Entrar</button>
+        </div>
+      </form>
+    </section>
+  </main>
 
+  <script src="app.js"></script>
 </body>
 </html>
